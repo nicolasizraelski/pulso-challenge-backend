@@ -13,7 +13,6 @@ export class FoodController {
           size: req.file.size,
         });
 
-        // Validar formato de imagen
         const allowedMimeTypes = ["image/png", "image/jpeg", "image/gif", "image/webp"];
         if (!allowedMimeTypes.includes(req.file.mimetype)) {
           res.status(400).json({

@@ -2,16 +2,11 @@ import OpenAI from "openai";
 import { FoodAnalysisRequest, FoodAnalysisResponse, FoodEstimationResponse } from "../types";
 import configs from "../configs";
 import { analyzeFoodFromImagePrompt, analyzeFoodFromTextPrompt, getNutritionInfoPrompt } from "../modules/food/prompts";
+import { extractJsonFromText } from "../utils/jsonExtractor";
 
 const openai = new OpenAI({
   apiKey: configs.openaiApiKey,
 });
-
-// Utilidad para limpiar bloque de código markdown, si viene envuelto en ```json o similares
-function extractJsonFromText(text: string): string {
-  const match = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
-  return match ? match[1].trim() : text.trim();
-}
 
 export class OpenAIService {
   async analyzeFoodFromImage(imageBase64: string): Promise<FoodEstimationResponse> {
